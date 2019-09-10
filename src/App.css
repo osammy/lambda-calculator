@@ -19,6 +19,7 @@
     /*width:100%;*/
     width: 450px;
     /*width:340px;*/
+    overflow:auto;
     border-radius: 50px;
     color: white;
     background-color: #322c2d;
@@ -28,6 +29,50 @@
     align-items: flex-end;
     padding-right: 8%;
     font-size: 5.0rem;
+}
+
+.new_display {
+    margin: 25px 0;
+    height: 100px;
+    /*width:100%;*/
+    width: 450px;
+    /*width:340px;*/
+    /*overflow:auto;*/
+    border-radius: 50px;
+    color: white;
+    background-color: #322c2d;
+    box-shadow: 1px 1px #322c2d;
+    /*display: flex;
+    flex-direction:column;*/
+    /*justify-content: space-between;
+    /*align-items: flex-end;*/
+    /*padding-right: 8%;
+    font-size: 5.0rem;   */
+}
+
+.main {
+    /*width:340px;*/
+    overflow:auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-right: 8%;
+    font-size: 3.5rem;  
+    border:1px solid green; 
+    margin:0;
+}
+
+.small {
+    margin:0;
+    border:1px solid blue; 
+        overflow:auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-right: 8%;
+    font-size: 1.5rem;  
+    /*font-size:0.05em;*/
+    /*color:red;*/
 }
 
 .specials {
@@ -66,6 +111,10 @@
    margin:0 20px 10px 10px;
    /*margin-right:20px;
    margin-bottom:10px;*/
+}
+
+btn:focus {
+    outline: none;
 }
 
 .btn-lg {

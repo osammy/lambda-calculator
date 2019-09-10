@@ -1,48 +1,68 @@
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import "./App.css";
 import Display from './components/DisplayComponents/Display';
 // import Numbers from './components/ButtonComponents/NumberButtons/Numbers';
-import Operators from './components/ButtonComponents/OperatorButtons/Operators';
-import Specials from './components/ButtonComponents/SpecialButtons/Specials';
-import Numbers from './components/ButtonComponents/NumberButtons/Numbers';
 
-
-// STEP 4 - import the button and display components
-// Don't forget to import any extra css/scss files you build into the correct component
-
-// Logo has already been provided for you. Do the same for the remaining components
+import {numbers,specials,operators} from './data';
+import Buttons from './components/ButtonComponents/Buttons/Buttons';
 import Logo from "./components/DisplayComponents/Logo";
 
 function App() {
-  // STEP 5 - After you get the components displaying using the provided data file, write your state hooks here.
-  // Once the state hooks are in place write some functions to hold data in state and update that data depending on what it needs to be doing
-  // Your functions should accept a parameter of the the item data being displayed to the DOM (ie - should recieve 5 if the user clicks on
-  // the "5" button, or the operator if they click one of those buttons) and then call your setter function to update state.
-  // Don't forget to pass the functions (and any additional data needed) to the components as props
+
   const [total, setTotal] = useState(0);
   const [displayCharacters, updateDisplayChar] = useState("");
 
+
+
   function addCharacter(ch) {
-    if(ch === "=") console.log("equal  TO CLICKED")
-    const charaterToDisplay = `${displayCharacters} ${ch}`;
+
+    if(ch === "C") {
+      resetdisplayCharacters();
+      return;
+    }
+
+    if(isEqualToSignInDisplayCharacter(displayCharacters)) {
+      resetdisplayCharacters();
+      updateDisplayChar(ch)
+      return;
+    }
+
+    if (operators.includes(ch)) ch = " "+ch;
+    
+    if(ch === "=") {
+      const newTotal = evaluateString(displayCharacters);
+      setTotal(newTotal);
+      const charaterToDisplay = `${displayCharacters}${ch} ${newTotal}`;
+      console.log(total)
+      updateDisplayChar(charaterToDisplay)
+      return;
+    }
+
+    
+    let charaterToDisplay = `${displayCharacters}${ch}`;
     updateDisplayChar(charaterToDisplay)
+  }
+
+  function resetdisplayCharacters() {
+    updateDisplayChar("")
+  }
+
+  function evaluateString(displayCharacters) {
+    return eval(displayCharacters);
+  }
+
+  function isEqualToSignInDisplayCharacter(theCharactersToCheck) {
+    if(theCharactersToCheck !== "" && theCharactersToCheck.split("=").length > 1) return true;
+    return false;
   }
 
   return (
     <div className="container">
-      <div class="content">
+      <div className="content">
       <Logo />
       <div className="App">
         <Display displayCharacters={displayCharacters} />
-        <div className="buttonsContainer">
-          <div>
-            <Specials addCharacter={addCharacter} setTotal={setTotal} />
-            <Numbers addCharacter={addCharacter} />
-          </div>
-          <Operators addCharacter={addCharacter} />
-        </div>
-        {/*<Numbers />*/}
-        {/* STEP 4 - Render your components here and be sure to properly import/export all files */}
+        <Buttons addCharacter={addCharacter} setTotal={setTotal}  />
       </div>
       </div>
     </div>
